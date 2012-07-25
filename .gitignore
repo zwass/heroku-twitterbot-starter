@@ -1,0 +1,9 @@
+#setup_env.sh contains Twitter API credentials. Don't commit!
+setup_env.sh
+
+#The following for virtualenv
+.Python
+bin/
+include/
+lib/
+distribute-*
