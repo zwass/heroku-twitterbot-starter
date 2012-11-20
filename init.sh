@@ -19,14 +19,30 @@ echo "for instructions on creating your Consumer Key and Access Token."
 echo "Be sure to set to Access Level to \"Read and write\" in the Settings tab."
 echo
 
-echo -n "Consumer key: "
-read consumerkey
-echo -n "Consumer secret: "
-read consumersecret
-echo -n "Access token: "
-read accesstoken
-echo -n "Access token secret: "
-read accesstokensecret
+confirmed_creds="n"
+while [ $confirmed_creds != "y" ]; do
+
+    echo -n "Consumer key: "
+    read consumerkey
+    echo -n "Consumer secret: "
+    read consumersecret
+    echo -n "Access token: "
+    read accesstoken
+    echo -n "Access token secret: "
+    read accesstokensecret
+
+    echo "We read these credentials:"
+    cat <<EOF
+TWITTER_CONSUMER_KEY=$consumerkey
+TWITTER_CONSUMER_SECRET=$consumersecret
+TWITTER_ACCESS_TOKEN=$accesstoken
+TWITTER_ACCESS_TOKEN_SECRET=$accesstokensecret
+EOF
+    echo "Is this correct? [y/n]"
+    read confirmed_creds
+done
+
+
 
 #add the twitter credentials to the Heroku app environment
 echo
@@ -50,7 +66,7 @@ git push heroku master
 #Now Heroku should recognize worker when we try to scale
 
 echo
-echo "Scaling to web=0 worker=1"
-heroku ps:scale web=0 worker=1
+echo "Scaling to worker=1"
+heroku ps:scale worker=1
 
 echo "Now you can \"source setup_env.sh\" and get to work on that sweet bot!"
