@@ -22,7 +22,7 @@ class TwitterAPI:
 
     def tweet(self, message):
         """Send a tweet"""
-        self.api.update_status(message)
+        self.api.update_status(status=message)
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
